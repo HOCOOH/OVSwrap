@@ -29,6 +29,17 @@ The PoC:
 
 The PoC assumes and targets x86-64 to keep things simple. In theory, the bug should not be arch-specific.
 
+## Temporary mitigations
+
+- [`bpf-mitigation`](bpf-mitigation) rejects OVS actions that would overflow
+  `nla_len` after expansion.
+- [`lua-lsm-mitigation`](lua-lsm-mitigation)
+  ([中文文档](lua-lsm-mitigation/README.zh-CN.md)) denies `CAP_NET_ADMIN` in
+  non-initial user namespaces, blocking the public PoC's unprivileged path.
+
+The Lua-LSM policy is broader and does not block initial-userns administrators.
+Prefer a kernel containing the upstream fix.
+
 ## Requirements
 
 - Linux x86-64 running an affected, unfixed kernel
